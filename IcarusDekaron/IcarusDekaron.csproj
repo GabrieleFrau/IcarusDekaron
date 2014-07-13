@@ -86,6 +86,7 @@
     <None Include="Resources\close.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Hidden-Archives.ttf" />
     <None Include="Resources\minimize.png" />
   </ItemGroup>
   <ItemGroup>

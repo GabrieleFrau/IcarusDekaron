@@ -40,7 +40,7 @@
             this.lblPing = new System.Windows.Forms.Label();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.chkSound = new System.Windows.Forms.CheckBox();
-            this.lblDekaron = new System.Windows.Forms.LinkLabel();
+            this.lnkStart = new System.Windows.Forms.LinkLabel();
             this.trayIconMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,6 +101,7 @@
             this.btnExit.BackgroundImage = global::IcarusDekaron.Properties.Resources.minimize;
             this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Location = new System.Drawing.Point(631, 12);
             this.btnExit.Name = "btnExit";
@@ -116,6 +117,7 @@
             this.btnClose.BackgroundImage = global::IcarusDekaron.Properties.Resources.close;
             this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Location = new System.Drawing.Point(713, 12);
             this.btnClose.Name = "btnClose";
@@ -132,8 +134,9 @@
             this.lblPing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPing.Location = new System.Drawing.Point(6, 9);
             this.lblPing.Name = "lblPing";
-            this.lblPing.Size = new System.Drawing.Size(0, 20);
+            this.lblPing.Size = new System.Drawing.Size(40, 20);
             this.lblPing.TabIndex = 7;
+            this.lblPing.Text = "Ping";
             // 
             // webBrowser
             // 
@@ -141,12 +144,12 @@
             this.webBrowser.AllowWebBrowserDrop = false;
             this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser.Location = new System.Drawing.Point(9, 294);
+            this.webBrowser.Location = new System.Drawing.Point(9, 249);
             this.webBrowser.Margin = new System.Windows.Forms.Padding(0);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.ScrollBarsEnabled = false;
-            this.webBrowser.Size = new System.Drawing.Size(779, 234);
+            this.webBrowser.Size = new System.Drawing.Size(779, 279);
             this.webBrowser.TabIndex = 2;
             this.webBrowser.Url = new System.Uri("http://html5pwns.altervista.org/index.html", System.UriKind.Absolute);
             this.webBrowser.WebBrowserShortcutsEnabled = false;
@@ -162,7 +165,7 @@
             this.chkSound.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.chkSound.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.chkSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkSound.Font = new System.Drawing.Font("Segoe Print", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkSound.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSound.Location = new System.Drawing.Point(545, 13);
             this.chkSound.Name = "chkSound";
             this.chkSound.Size = new System.Drawing.Size(80, 29);
@@ -171,23 +174,24 @@
             this.chkSound.UseVisualStyleBackColor = false;
             this.chkSound.CheckedChanged += new System.EventHandler(this.chkSound_CheckedChanged);
             // 
-            // lblDekaron
+            // lnkStart
             // 
-            this.lblDekaron.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblDekaron.AutoSize = true;
-            this.lblDekaron.BackColor = System.Drawing.Color.Transparent;
-            this.lblDekaron.DisabledLinkColor = System.Drawing.Color.Black;
-            this.lblDekaron.Font = new System.Drawing.Font("Impact", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDekaron.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lblDekaron.LinkColor = System.Drawing.Color.Black;
-            this.lblDekaron.Location = new System.Drawing.Point(285, 281);
-            this.lblDekaron.Name = "lblDekaron";
-            this.lblDekaron.Size = new System.Drawing.Size(230, 39);
-            this.lblDekaron.TabIndex = 10;
-            this.lblDekaron.TabStop = true;
-            this.lblDekaron.Text = "Icarus Dekaron";
-            this.lblDekaron.VisitedLinkColor = System.Drawing.Color.Red;
-            this.lblDekaron.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDekaron_LinkClicked);
+            this.lnkStart.AutoSize = true;
+            this.lnkStart.BackColor = System.Drawing.Color.Transparent;
+            this.lnkStart.DisabledLinkColor = System.Drawing.Color.Black;
+            this.lnkStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkStart.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkStart.LinkColor = System.Drawing.Color.Transparent;
+            this.lnkStart.Location = new System.Drawing.Point(283, 193);
+            this.lnkStart.Name = "lnkStart";
+            this.lnkStart.Size = new System.Drawing.Size(234, 37);
+            this.lnkStart.TabIndex = 10;
+            this.lnkStart.TabStop = true;
+            this.lnkStart.Text = "Icarus Dekaron";
+            this.lnkStart.VisitedLinkColor = System.Drawing.Color.Transparent;
+            this.lnkStart.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkStart_LinkClicked);
+            this.lnkStart.MouseEnter += new System.EventHandler(this.lnkStart_MouseEnter);
+            this.lnkStart.MouseLeave += new System.EventHandler(this.lnkStart_MouseLeave);
             // 
             // frmMain
             // 
@@ -197,7 +201,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.ControlBox = false;
-            this.Controls.Add(this.lblDekaron);
+            this.Controls.Add(this.lnkStart);
             this.Controls.Add(this.chkSound);
             this.Controls.Add(this.lblPing);
             this.Controls.Add(this.btnClose);
@@ -232,7 +236,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblPing;
         private System.Windows.Forms.CheckBox chkSound;
-        private System.Windows.Forms.LinkLabel lblDekaron;
+        private System.Windows.Forms.LinkLabel lnkStart;
     }
 }
 
