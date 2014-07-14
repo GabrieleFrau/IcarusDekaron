@@ -38,9 +38,9 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblPing = new System.Windows.Forms.Label();
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.chkSound = new System.Windows.Forms.CheckBox();
             this.lnkStart = new System.Windows.Forms.LinkLabel();
+            this.lblBar = new System.Windows.Forms.Label();
             this.trayIconMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +56,6 @@
             this.prgBar.Size = new System.Drawing.Size(779, 34);
             this.prgBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.prgBar.TabIndex = 1;
-            this.prgBar.Value = 30;
             // 
             // trayIcon
             // 
@@ -131,28 +130,12 @@
             this.lblPing.AutoSize = true;
             this.lblPing.BackColor = System.Drawing.Color.Transparent;
             this.lblPing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblPing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPing.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPing.Location = new System.Drawing.Point(6, 9);
             this.lblPing.Name = "lblPing";
-            this.lblPing.Size = new System.Drawing.Size(40, 20);
+            this.lblPing.Size = new System.Drawing.Size(62, 29);
             this.lblPing.TabIndex = 7;
             this.lblPing.Text = "Ping";
-            // 
-            // webBrowser
-            // 
-            this.webBrowser.AllowNavigation = false;
-            this.webBrowser.AllowWebBrowserDrop = false;
-            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser.Location = new System.Drawing.Point(9, 249);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(0);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.ScrollBarsEnabled = false;
-            this.webBrowser.Size = new System.Drawing.Size(779, 279);
-            this.webBrowser.TabIndex = 2;
-            this.webBrowser.Url = new System.Uri("http://html5pwns.altervista.org/index.html", System.UriKind.Absolute);
-            this.webBrowser.WebBrowserShortcutsEnabled = false;
             // 
             // chkSound
             // 
@@ -193,6 +176,20 @@
             this.lnkStart.MouseEnter += new System.EventHandler(this.lnkStart_MouseEnter);
             this.lnkStart.MouseLeave += new System.EventHandler(this.lnkStart_MouseLeave);
             // 
+            // lblBar
+            // 
+            this.lblBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBar.AutoSize = true;
+            this.lblBar.BackColor = System.Drawing.Color.Transparent;
+            this.lblBar.ForeColor = System.Drawing.Color.Transparent;
+            this.lblBar.Location = new System.Drawing.Point(383, 564);
+            this.lblBar.Name = "lblBar";
+            this.lblBar.Size = new System.Drawing.Size(108, 13);
+            this.lblBar.TabIndex = 11;
+            this.lblBar.Text = "Checking for updates";
+            this.lblBar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,12 +198,12 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.ControlBox = false;
+            this.Controls.Add(this.lblBar);
             this.Controls.Add(this.lnkStart);
             this.Controls.Add(this.chkSound);
             this.Controls.Add(this.lblPing);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.prgBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -218,6 +215,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IcarusDekaron";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.trayIconMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -227,7 +225,6 @@
         #endregion
 
         private System.Windows.Forms.ProgressBar prgBar;
-        private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.ContextMenuStrip trayIconMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
@@ -237,6 +234,7 @@
         private System.Windows.Forms.Label lblPing;
         private System.Windows.Forms.CheckBox chkSound;
         private System.Windows.Forms.LinkLabel lnkStart;
+        internal System.Windows.Forms.Label lblBar;
     }
 }
 

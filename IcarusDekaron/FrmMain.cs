@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.IO.Compression;
+using System.Net;
 
 namespace IcarusDekaron
 {
     public partial class frmMain : Form
     {
-        SoundPlayer player;
+        SoundPlayer player = null;
         bool playing = false;
+        Task task;
+        Timer timer;
 
         public frmMain()
         {
@@ -44,13 +44,11 @@ namespace IcarusDekaron
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            trayIcon.Visible = false;
             this.Show();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            trayIcon.Visible = false;
             this.Show();
         }
 
@@ -78,7 +76,7 @@ namespace IcarusDekaron
             playing = true;
             initCustomFont();
             Ping ping = new Ping();
-            PingReply reply = ping.Send(Properties.Settings.Default.Server);
+            PingReply reply = ping.Send(IcarusDekaron.Server.Address);
             if (reply.Status == IPStatus.Success)
             {
                 lblPing.ForeColor = Color.Green;
@@ -89,6 +87,75 @@ namespace IcarusDekaron
                 lblPing.ForeColor = Color.Red;
                 lblPing.Text = "Server unreachable: " + reply.Status.ToString();
             }
+            if (checkForUpdates())
+            {
+                WebClient client = new WebClient();
+                client.DownloadProgressChanged += client_DownloadProgressChanged;
+                client.DownloadDataCompleted += client_DownloadDataCompleted;
+                client.DownloadDataAsync(new Uri("http://html5pwns.altervista.org/update.zip"));
+            }
+            else
+                lblBar.Text = "Client up to date.";
+        }
+
+        void client_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+                lblBar.Text = "Download failed " + ((e.Error != null) ? e.Error.Message : " ");
+            else
+            {
+                lblBar.Text = "Download succeded. Extracting....";
+                MemoryStream stream = new MemoryStream(e.Result);
+                Action<object> actionDecompress = (object ret) =>
+                        {
+                            ZipArchive archive = new ZipArchive((MemoryStream)ret, ZipArchiveMode.Read);
+                            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "IcarusDekaron");
+                            if (Directory.Exists(path))
+                                Directory.Delete(path, true);
+                            archive.ExtractToDirectory(path);
+                        };
+                task = new Task((Action<object>)actionDecompress, stream);
+                task.Start();
+                timer = new Timer();
+                timer.Interval = 1000;
+                timer.Tick += timer_Tick;
+                timer.Start();
+            }
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if (task.IsCompleted)
+            {
+                lblBar.Text = "Stuff extracted. Installing";
+                prgBar.Value = 75;
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "IcarusDekaron");
+                string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+                foreach (string file in files)
+                {
+                    string newfile = file.Replace(path, Directory.GetCurrentDirectory());
+                    if (File.Exists(newfile))
+                    {
+                        File.Replace(file, newfile, newfile + ".bak");
+                        File.SetAttributes(newfile + ".bak", FileAttributes.Hidden);
+                    }
+                    else
+                        File.Move(file, newfile);
+                    prgBar.Step = 100 / files.Length;
+                    prgBar.PerformStep();
+                }
+                lblBar.Text = "Game updated";
+            }
+            else if (task.IsCanceled || task.IsFaulted)
+            {
+                lblBar.Text = "There has been an error when extracting: " + ((task.Exception != null) ? task.Exception.Message : " ");
+            }
+            timer.Stop();
+        }
+
+        void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            prgBar.Value = e.ProgressPercentage / 2;
         }
 
         private void chkSound_CheckedChanged(object sender, EventArgs e)
@@ -148,6 +215,19 @@ namespace IcarusDekaron
         private void lnkStart_MouseLeave(object sender, EventArgs e)
         {
             lnkStart.LinkColor = Color.Transparent;
+        }
+
+        private void frmMain_Shown(object sender, EventArgs e)
+        {
+            trayIcon.Visible = false;
+        }
+
+        private bool checkForUpdates()
+        {
+            WebClient webclient = new WebClient();
+            long clientVer = Convert.ToInt64(global::IcarusDekaron.Properties.Resources.Version);
+            long serverVer = Convert.ToInt64(webclient.DownloadString(IcarusDekaron.Server.Version));
+            return (clientVer < serverVer);
         }
     }
 }

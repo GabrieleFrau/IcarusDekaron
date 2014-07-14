@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("IcarusDekaron")]
 [assembly: AssemblyDescription("Launcher for Icarus Dekaron")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AndreiNabboTrollollero")]
+[assembly: AssemblyCompany("Cipolla")]
 [assembly: AssemblyProduct("IcarusDekaron")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
